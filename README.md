@@ -44,12 +44,12 @@ CREATE TABLE images(
    image_url text UNIQUE NOT NULL,
    tags text,
    vectors double precision[],
-   emb100 cube   
+   embeddings cube   
 );
 ```
-3. Create a GIST index on the emb100 column which stores a 100-dimesional embedding of the original vector:
+3. Create a GIST index on the embeddings column which stores a 100-dimensional embedding of the original vector:
 
-`create index ix_gist on images using GIST (emb100);`
+`create index ix_gist on images using GIST (embeddings);`
 
 _Note: you might need to create other indexes (b-tree etc.) on other fields for efficient searching & sorting, but that's outside our scope_
 
@@ -66,7 +66,7 @@ for image in images:
    vect = get_image_vector(image) # <-- use imagenet or such model to generate a vector from one of the final layers
    emb_vect = get_embedding(vect)
    emb_string = "({0})".format(','.join("%10.8f" % x for x in emb_vect)) # <-- pg fails beyond 100 dimensions for cube, so reduce dimensionality
-   row_dict["emb100"] = emb_string
+   row_dict["embeddings"] = emb_string
    row_dict["vectors"] = vect.tolist()
    row_id = tbl.insert(row_dict)
 ```
@@ -82,7 +82,7 @@ We can start querying the database even as population is in progress
 
     print ("[+] doing ANN search:")
     emb_string = "'({0})'".format(','.join("%10.8f" % x for x in query_emb))
-    sql = "select id,url,tags from images where emb100 <-> cube({0}) < thresh order by emb100 <-> cube({0}) asc limit 10".format((emb_string))
+    sql = "select id,url,tags from images where embeddings <-> cube({0}) < thresh order by embeddings <-> cube({0}) asc limit 10".format((emb_string))
     results = db.query(sql)
     for result in results:
       print(result['url'], result['tags'])
