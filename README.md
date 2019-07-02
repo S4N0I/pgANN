@@ -46,10 +46,13 @@ CREATE TABLE images(
 ```
 3. Create a GIST index on the emb100 column which stores a 100-dimesional embedding of the original vector
 `create index ix_gist on images using GIST (emb100);`
-Note: you might need to create other indexes (b-tree etc.) on other fields for efficient searching & sorting, but that's outside our scope.
+
+_Note: you might need to create other indexes (b-tree etc.) on other fields for efficient searching & sorting, but that's outside our scope_
 
 ##Populating db
-Now we are ready to populate the database with  vectors and associated embeddings.
+Now we are ready to populate the database with  vectors and associated embeddings. 
+
+_Note: we are using the [dataset](https://dataset.readthedocs.io/en/latest/) library for interfacing with postgres, but this should work just as well with your favorite driver (psycopg2 etc.)_
 
 ```
 db = dataset.connect('postgresql://user:pass@@localhost:5432/yourdb')
