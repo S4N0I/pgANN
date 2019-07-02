@@ -21,7 +21,7 @@ Feedback and PRs very welcome!
 
 - `cube` type doesn't seem to work for > [100 dimensions](https://www.postgresql.org/docs/current/cube.html#AEN176262), so we need to perform dimensionality reduction. Example for dim. reduction included in the sample code
 - haven't tested with sparse vectors, but in theory should work decently with appropriate dimensionality reduction techniques
-- pgANN might *not* perform as accurately as some of the better known approaches, but you can use pgANN to fetch a set of (say) 10K vectors and then `rerank` based on your favorite metric. Unfortunately, there are no easy wins in ANN approaches.
+- pgANN might *not* perform as accurately as some of the better known approaches, but you can use pgANN to fetch a subset of (say) a fw thousand and then `rerank` based on your favorite metric. Unfortunately, there are no easy wins in ANN approaches, hopefully pgANN gets you a "good enough" subset for your reranking.
 
 ## Requirements
 - Postgres 10.x+ or higher (we haven't tested on PG 9.6+, but `cube`,`GIST` and distance operators are available on 9.6+, so it *might* work)
