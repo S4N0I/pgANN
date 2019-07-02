@@ -1,13 +1,12 @@
 # pgANN
 
-Approximate Nearest Neighbor with a Postgres backend. 
+Approximate Nearest Neighbor (ANN) using a Postgres backend. 
 
 ## Background
 
 Approximate Nearest Neighbor approaches are a powerful tool for various AI/ML tasks, however many existing tools (faiss,annoy etc.) are "in memory". The challenge for us was to hold extremely large datasets in memory was challenging, not to mention CRUDs which makes it challenging in an "online" environment where fresh data is continuously accumulated.
 
-Today we are open-sourcing a simple, but effective approach that provides ANN using the very popular Postgres database backend. 
-We use this tool internally for our image collections and processing and hopefully this is of use to the F/OSS community. 
+We are open-sourcing a simple, but effective approach that provides ANN using the very popular Postgres database backend. At [Netra](http://netra.io) we use this tool internally for our image collections and processing to feed into our Deep learning models. We consistently see `sub-second` response times for 10s of millions of rows on a 32Gb/8 vcpu box. We  hope this is of use to the F/OSS community. 
 
 Feedback and PRs very welcome!
 
@@ -22,7 +21,7 @@ Feedback and PRs very welcome!
 
 - `cube` type doesn't seem to work for > [100 dimensions](https://www.postgresql.org/docs/current/cube.html#AEN176262), so we need to perform dimensionality reduction. Example for dim. reduction included in the sample code
 - haven't tested with sparse vectors, but in theory should work decently with appropriate dimensionality reduction techniques
-
+- pgANN might *not* perform as accurately as some of the better known approaches, but you can use pgANN to fetch a set of (say) 10K vectors and then `rerank` based on your favorite metric. Unfortunately, there are no easy wins in ANN approaches.
 
 ## Requirements
 - Postgres 10.x+ or higher (we haven't tested on PG 9.6+, but `cube`,`GIST` and distance operators are available on 9.6+, so it *might* work)
