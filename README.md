@@ -1,6 +1,6 @@
 # pgANN
 
-Approximate Nearest Neighbor (ANN) searches using a Postgres backend. 
+Approximate Nearest Neighbor (ANN) searches using a PostgreSQL backend. 
 
 ## Background
 
@@ -16,9 +16,9 @@ Feedback and PRs very welcome!
 
 ## Advantages
 
-- leverages postgres database queries & indexes
-- no additional storage needed, associated metadata is fetched alongwith the "neighbors" (i.e. fewer moving parts)
-- no re-training needed for fresh data (CRUDs) due to query time ranking (online mode)
+- leverages postgres database queries & indexes (no additional tooling needed)
+- associated metadata is fetched alongwith the "neighbors" (i.e. fewer moving parts)
+- no re-training needed for CRUDs due to query time ranking ("online mode")
 - should scale with tried & tested database scaling techniques (partioning etc.)
 
 ## Challenges
