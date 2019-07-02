@@ -43,7 +43,8 @@ CREATE TABLE images(
    emb100 cube   
 );
 ```
-3. Create a GIST index on the emb100 column which stores a 100-dimesional embedding of the original vector
+3. Create a GIST index on the emb100 column which stores a 100-dimesional embedding of the original vector:
+
 `create index ix_gist on images using GIST (emb100);`
 
 _Note: you might need to create other indexes (b-tree etc.) on other fields for efficient searching & sorting, but that's outside our scope_
