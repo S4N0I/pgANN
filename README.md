@@ -6,7 +6,7 @@ Approximate Nearest Neighbor (ANN) using a Postgres backend.
 
 Approximate Nearest Neighbor approaches are a powerful tool for various AI/ML tasks, however many existing tools (faiss,annoy etc.) are "in memory". The challenge for us was to hold extremely large datasets in memory was challenging, not to mention CRUDs which makes it challenging in an "online" environment where fresh data is continuously accumulated.
 
-We are open-sourcing a simple, but effective approach that provides ANN using the very popular Postgres database backend. At [Netra](http://netra.io) we use this tool internally for our image collections and processing to feed into our Deep learning models. We consistently see `sub-second` response times for 10s of millions of rows on a 32Gb/8 vcpu box. We  hope this is of use to the F/OSS community. 
+We are open-sourcing a simple, but effective approach that provides ANN using the very popular Postgres database backend. At [Netra](http://netra.io) we use this tool internally for managing & searching our image collections for further processing and/or feed into our Deep learning models. We consistently see `sub-second` response times for 10s of millions of rows on a 32Gb/8 vcpu box. We  hope this is of use to the F/OSS community. 
 
 Feedback and PRs very welcome!
 
