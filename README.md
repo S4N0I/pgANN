@@ -2,7 +2,7 @@
 
 Approximate Nearest Neighbor with a Postgres backend. 
 
-##Background
+## Background
 
 Approximate Nearest Neighbor approaches are a powerful tool for various AI/ML tasks, however most existing tools are mostly "in memory". Such tools include `faiss`,`Annoy` etc. The challenge for us was to hold extremely large datasets in memory was challenging, not to mention inserts/updates/deletes which makes it challenging in an "online" environment where fresh data is continuously accumulated.
 
@@ -11,24 +11,24 @@ We use this tool internally for our image collections and processing and hopeful
 
 Feedback and PRs very welcome!
 
-##Advantages
+## Advantages
 
 - leverages postgres database queries & indexes
 - no additional storage needed, associated metadata is fetched alongwith the "neighbors" (i.e. fewer moving parts)
 - no re-training needed for fresh data (CRUDs) due to query time ranking (online mode)
 - should scale with tried & tested database scaling techniques (partioning etc.)
 
-##Challenges
+## Challenges
 
 - `cube` type doesn't seem to work for > [100 dimensions](https://www.postgresql.org/docs/current/cube.html#AEN176262), so we need to perform dimensionality reduction. Example for dim. reduction included in the sample code
 - haven't tested with sparse vectors, but in theory should work decently with appropriate dimensionality reduction techniques
 
 
-##Requirements
+## Requirements
 - Postgres 9.6+ or higher (we have tested on PG 10.x, but cube/GIST/distance operators are available on 9.6+)
 - Cube extension from Postgres
 
-##Setup
+## Setup
 
 1. Make sure you are logged in as superuser into pg and run:
 `create extension cube;`
@@ -49,7 +49,7 @@ CREATE TABLE images(
 
 _Note: you might need to create other indexes (b-tree etc.) on other fields for efficient searching & sorting, but that's outside our scope_
 
-##Populating db
+## Populating db
 Now we are ready to populate the database with  vectors and associated embeddings. 
 
 _Note: we are using the [dataset](https://dataset.readthedocs.io/en/latest/) library for interfacing with postgres, but this should work just as well with your favorite driver (psycopg2 etc.)_
@@ -67,7 +67,7 @@ for image in images:
    row_id = tbl.insert(row_dict)
 ```
 
-##Querying
+## Querying
 We can start querying the database even as population is in progress
 
 ```
