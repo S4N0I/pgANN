@@ -4,7 +4,7 @@ Approximate Nearest Neighbor with a Postgres backend.
 
 ## Background
 
-Approximate Nearest Neighbor approaches are a powerful tool for various AI/ML tasks, however most existing tools are mostly "in memory". Such tools include `faiss`,`Annoy` etc. The challenge for us was to hold extremely large datasets in memory was challenging, not to mention inserts/updates/deletes which makes it challenging in an "online" environment where fresh data is continuously accumulated.
+Approximate Nearest Neighbor approaches are a powerful tool for various AI/ML tasks, however many existing tools (faiss,annoy etc.) are "in memory". The challenge for us was to hold extremely large datasets in memory was challenging, not to mention CRUDs which makes it challenging in an "online" environment where fresh data is continuously accumulated.
 
 Today we are open-sourcing a simple, but effective approach that provides ANN using the very popular Postgres database backend. 
 We use this tool internally for our image collections and processing and hopefully this is of use to the F/OSS community. 
@@ -25,7 +25,7 @@ Feedback and PRs very welcome!
 
 
 ## Requirements
-- Postgres 9.6+ or higher (we have tested on PG 10.x, but cube/GIST/distance operators are available on 9.6+)
+- Postgres 10.x+ or higher (we haven't tested on PG 9.6+, but `cube`,`GIST` and distance operators are available on 9.6+, so it *might* work)
 - Cube extension from Postgres
 
 ## Setup
@@ -61,7 +61,7 @@ tbl = db['images']
 for image in images:
    vect = get_image_vector(image) # <-- use imagenet or such model to generate a vector from one of the final layers
    emb_vect = get_embedding(vect)
-   emb_string = "({0})".format(','.join("%10.8f" % x for x in emb_vect)) # <-- pg fails beyond 100 dimensions for cube, so reduce dimensionaity
+   emb_string = "({0})".format(','.join("%10.8f" % x for x in emb_vect)) # <-- pg fails beyond 100 dimensions for cube, so reduce dimensionality
    row_dict["emb100"] = emb_string
    row_dict["vectors"] = vect.tolist()
    row_id = tbl.insert(row_dict)
