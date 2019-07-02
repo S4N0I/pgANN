@@ -33,14 +33,14 @@ Feedback and PRs very welcome!
 1. Make sure you are logged in as superuser into pg and run:
 `create extension cube;`
 
-2. We shall use the example of an `images` table to illustrate the approach, the images table stores the url, vectors and the embeddings for the vectors in the table. You can of course modify table structure to your needs.
+2. We shall use the example of an `images` table to illustrate the approach, the images table stores the url, any metadata tags, vectors and the embeddings for the vectors in the table. You can of course modify table structure to your needs.
 
 ```
 CREATE TABLE images(
    image_id serial PRIMARY KEY,
    image_url text UNIQUE NOT NULL,
+   tags text,
    vectors double precision[],
-   emb100 cube
-   
+   emb100 cube   
 );
 ```
