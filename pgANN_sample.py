@@ -3,9 +3,9 @@ import joblib
 import numpy as np
 import umap
 
-#note this can be between 2-100, lower numbers in general provide better speeds at the cost of lower accuracy
+
 N_SAMPLES = 100000  #training data for UMAP model
-N_EMBEDDING_DIM = 100 
+N_EMBEDDING_DIM = 100 #note this can be between 2-100, lower numbers in general provide better speeds at the cost of lower accuracy
 
 #train our dimensionality model , this assumes the table images is populated with vectors for each image
 # sample bernoulli to train a representative model for dimensionality reduction
