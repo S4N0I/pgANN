@@ -7,9 +7,9 @@ import umap
 N_SAMPLES = 100000  #training data for UMAP model
 N_EMBEDDING_DIM = 100 #note this can be between 2-100, lower numbers in general provide better speeds at the cost of lower accuracy
 
-#train our dimensionality model , this assumes the table images is populated with vectors for each image
+#train our dimensionality reduction model , this assumes the table images is populated with vectors for each image
 # sample bernoulli to train a representative model for dimensionality reduction
-# we use UMAP (a much faster and better than comparable approaches such as t-sne)
+# we use UMAP - a much faster (and better) approaches than comparable ones such as t-sne - you might need to experiment what works for your case.
 def train(db):
     print("[+] fetching training data:")
     sql = "select id,vector from images TABLESAMPLE BERNOULLI(0.5) where vector is not null limit {0}".format(N_SAMPLES)
