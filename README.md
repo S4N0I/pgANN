@@ -27,7 +27,7 @@ Feedback and PRs very welcome!
 - haven't tested with sparse vectors, but in theory should work decently with appropriate dimensionality reduction techniques
 - pgANN might *not* perform as accurately as some of the better known approaches, but you can use pgANN to fetch a subset of (say) a fw thousand and then `rerank` based on your favorite metric. Unfortunately, there are no easy wins in ANN approaches, hopefully pgANN gets you a "good enough" subset for your reranking.
 
-Update Oct 2, 2019: There is a docker instance available here that claims "Postgres DB docker image with increased limit for CUBE datatype (set to 2048)". I haven't had a chance to try it, but this seems pretty useful (Credit due to @andrey-avdeev for this suggestion.) 
+```Update Oct 2, 2019: There is a docker instance available here that claims "Postgres DB docker image with increased limit for CUBE datatype (set to 2048)". I haven't had a chance to try it, but this seems pretty useful (Credit due to @andrey-avdeev for this suggestion.)```
 
 ## Requirements
 - Postgres 10.x+ or higher (we haven't tested on PG 9.6+, but `cube`,`GIST` and distance operators are available on 9.6+, so it *might* work)
