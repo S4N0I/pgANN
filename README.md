@@ -99,4 +99,15 @@ We can start querying the database even as population is in progress
   
   More details [here](https://www.postgresql.org/docs/10/cube.html).
   
+ ## Improving Performance
+ 
+ Here are some steps you can use to squeeze more performance out of pgANN:
+ 
+- Reduce dimensionality (using `UMAP`, `t-SNE`or `<insert your favorite approach>`) and using that as an embedding
+- Horizontal partitioning data across multiple tables and using parallelism to combine results
+- Use some hashing technique (`LSH/MinHash` for example) to create a common signature for each row and use it as a filter during your query (reducing the lookup space)
+- Try different distance operators (`Euclidean`, vs `Chebyshev` vs `Taxicab`),
+- Remove sorting from your query. e.g `sql = "select id,embeddings from images where embeddings <-> cube({0}) <0.5".format((emb_string))`
+
+In these cases, you will need to fetch a significant N from the DB query and then re-rank based on your favorite similarity metric. Some combination of those might get you to some query times you can live with. Unfortunately ANN is largely ignored by the AI/DL community and there is significant research that needs to happen.
  
